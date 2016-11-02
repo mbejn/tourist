@@ -1,6 +1,7 @@
 package rs.tons.domain;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Route {
 
@@ -22,5 +23,12 @@ public class Route {
 
     public static Route create(Integer occurred, List<RouteLeg> routeLegs) {
         return new Route(occurred, routeLegs);
+    }
+
+    @Override
+    public String toString() {
+        return "Occurrences: " + occurrences
+                + " route: "
+                + routeLegs.stream().map(RouteLeg::toString).collect(Collectors.joining(" -> "));
     }
 }

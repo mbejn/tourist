@@ -9,6 +9,12 @@ public class Tourist {
     private final String countryOrigin;
     private final List<RouteLeg> destinations;
 
+    public Tourist(String name, String countryOrigin, List<RouteLeg> destinations) {
+        this.name = name;
+        this.countryOrigin = countryOrigin;
+        this.destinations = destinations;
+    }
+
     public Tourist(String name, String countryOrigin, RouteLeg... destinations) {
         this.name = name;
         this.countryOrigin = countryOrigin;

@@ -1,0 +1,24 @@
+{
+  "most_popular_routes": [
+    {
+      "popularity": 2,
+      "destinations": [
+        {
+          "name": "Autobuska stanica, Novi Sad, Serbia",
+          "latitude": 45.26515371917955,
+          "longitude": 19.829721450805664
+        },
+        {
+          "name": "Trg slobode 2, Novi Sad, Serbia",
+          "latitude": 45.255230518613764,
+          "longitude": 19.844988584518433
+        },
+        {
+          "name": "Dunavska, Novi Sad, Serbia",
+          "latitude": 45.25536646458419,
+          "longitude": 19.851404428482056
+        }
+      ]
+    }
+  ]
+}

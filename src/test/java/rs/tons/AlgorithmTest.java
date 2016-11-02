@@ -3,6 +3,7 @@ package rs.tons;
 import org.junit.Assert;
 import org.junit.Test;
 import rs.tons.domain.*;
+import rs.tons.utils.AlgorithmUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -71,8 +72,8 @@ public class AlgorithmTest {
                     RouteLeg.of(E, P)
             );
 
-    private static final Organization ORGANIZATION =
-            new Organization(
+    private static final TouristOrganization ORGANIZATION =
+            new TouristOrganization(
                     TOURIST_INFO_D,
                     TOURIST_INFO_A,
                     TOURIST_INFO_C,
@@ -109,7 +110,7 @@ public class AlgorithmTest {
     public void testExampleWithGivenDestination() {
 
         final Optional<Integer> optionalNumberOfRouteLegs = Optional.of(2);
-        final Optional<TouristDestination> optionalDestination = Optional.of(E);
+        final Optional<String> optionalDestination = Optional.of("E");
 
         final List<Route> routes = AlgorithmUtils.findMostPopularRoutes(optionalNumberOfRouteLegs, optionalDestination, ORGANIZATION);
 

@@ -1,29 +1,28 @@
-package rs.tons;
+package rs.tons.utils;
 
-import rs.tons.domain.Organization;
 import rs.tons.domain.Route;
 import rs.tons.domain.RouteLeg;
-import rs.tons.domain.TouristDestination;
+import rs.tons.domain.TouristOrganization;
 
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-class AlgorithmUtils {
+public class AlgorithmUtils {
 
     private static final int DEFAULT_MIN_NUMBER_OF_ROUTE_LEGS = 2;
 
-    public static List<Route> findMostPopularRoutes(Optional<Integer> optionalNumberOfRouteLegs, Optional<TouristDestination> destination, Organization organization) {
+    public static List<Route> findMostPopularRoutes(Optional<Integer> optionalNumberOfRouteLegs, Optional<String> destination, TouristOrganization organization) {
 
-        final List<List<RouteLeg>> collectedSubroutes = AlgorithmUtils.mapSurveysToAllSubroutes(optionalNumberOfRouteLegs, destination, organization);
+        final List<List<RouteLeg>> collectedSubroutes = mapSurveysToAllSubroutes(optionalNumberOfRouteLegs, destination, organization);
 
-        final List<Route> groupedSubroutes = AlgorithmUtils.groupAndCountSameRoutes(collectedSubroutes);
+        final List<Route> groupedSubroutes = groupAndCountSameRoutes(collectedSubroutes);
 
-        return AlgorithmUtils.groupAndOrderByOccurrences(groupedSubroutes);
+        return groupAndOrderByOccurrences(groupedSubroutes);
     }
 
-    private static List<List<RouteLeg>> mapSurveysToAllSubroutes(Optional<Integer> optionalNumberOfRouteLegs, Optional<TouristDestination> destination, Organization organization) {
+    private static List<List<RouteLeg>> mapSurveysToAllSubroutes(Optional<Integer> optionalNumberOfRouteLegs, Optional<String> destination, TouristOrganization organization) {
 
         final int minRouteLegs = optionalNumberOfRouteLegs.orElse(DEFAULT_MIN_NUMBER_OF_ROUTE_LEGS);
 
@@ -46,7 +45,7 @@ class AlgorithmUtils {
 
         // filter out if destination is set
         if (destination.isPresent()) {
-            return subroutes.filter(r -> r.get(r.size() - 1).getTo() == destination.get()).collect(Collectors.toList());
+            return subroutes.filter(r -> r.get(r.size() - 1).getTo().getName().equals(destination.get())).collect(Collectors.toList());
         }
 
         return subroutes.collect(Collectors.toList());

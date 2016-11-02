@@ -15,11 +15,6 @@ public class RouteLeg {
         return new RouteLeg(from, to);
     }
 
-    @Override
-    public String toString() {
-        return from.toString() + to.toString();
-    }
-
     public TouristDestination getTo() {
         return to;
     }
@@ -51,6 +46,11 @@ public class RouteLeg {
         result = prime * result + ((from == null) ? 0 : from.hashCode());
         result = prime * result + ((to == null) ? 0 : to.hashCode());
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return from.toString() + " -> " + to.toString();
     }
 
 }
