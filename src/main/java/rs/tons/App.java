@@ -42,6 +42,10 @@ public class App {
             System.out.println("[ERROR] Specified min number of route legs must be an integer.");
         } catch (IOException e) {
             System.out.println("[ERROR] Specified file is not found: " + e.getMessage());
+        } catch (IllegalStateException e) {
+            System.out.println("[ERROR]" + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("[ERROR] Unknown error occurred." + e.getMessage());
         }
     }
 

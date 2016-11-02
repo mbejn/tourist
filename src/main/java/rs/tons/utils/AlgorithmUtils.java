@@ -22,7 +22,11 @@ public class AlgorithmUtils {
         return groupAndOrderByOccurrences(groupedSubroutes);
     }
 
-    private static List<List<RouteLeg>> mapSurveysToAllSubroutes(Optional<Integer> optionalNumberOfRouteLegs, Optional<String> destination, TouristOrganization organization) {
+    /**
+     * Given the user route, it traverses and finds all possible subroutes.
+     *      It will include the target destination if it exists.
+     */
+    private static List<List<RouteLeg>> mapSurveysToAllSubroutes(Optional<Integer> optionalNumberOfRouteLegs, Optional<String> targetDestination, TouristOrganization organization) {
 
         final int minRouteLegs = optionalNumberOfRouteLegs.orElse(DEFAULT_MIN_NUMBER_OF_ROUTE_LEGS);
 
@@ -30,22 +34,24 @@ public class AlgorithmUtils {
                 .stream()
 //                .parallel()
                 .flatMap(survey -> {
-                    final List<RouteLeg> passengerRoute = survey.getDestinations();
-                    final int routeLength = passengerRoute.size();
+                    final List<RouteLeg> touristRoute = survey.getDestinations();
+                    final int routeLength = touristRoute.size();
 
                     final Stream<Integer> routeNumbers = IntStream.range(0, routeLength).boxed();
 
                     final Stream<List<RouteLeg>> allPossibleSubroutes = routeNumbers
 //                            .parallel()
-                            .flatMap(routeNumber -> produceAllSubroutes(minRouteLegs, routeNumber, passengerRoute));
+                            .flatMap(routeNumber -> produceAllSubroutes(minRouteLegs, routeNumber, touristRoute));
 
                     return allPossibleSubroutes;
 
                 });
 
-        // filter out if destination is set
-        if (destination.isPresent()) {
-            return subroutes.filter(r -> r.get(r.size() - 1).getTo().getName().equals(destination.get())).collect(Collectors.toList());
+        if (targetDestination.isPresent()) {
+            // filter out if destination is set
+            return subroutes
+                    .filter(route -> route.get(route.size() - 1).getTo().getName().equals(targetDestination.get()))
+                    .collect(Collectors.toList());
         }
 
         return subroutes.collect(Collectors.toList());
@@ -86,18 +92,28 @@ public class AlgorithmUtils {
         return produceOtherRoutes(minRouteLegs, newList, toBeTraversed.subList(1, toBeTraversed.size()), accumulator);
     }
 
+    /**
+     * Groups the same routes by the list of route legs.
+     *      Filters out the empty ones, and creates an explicit Route class as result foreach subroute.
+     */
     private static List<Route> groupAndCountSameRoutes(List<List<RouteLeg>> collectedSubroutes) {
         return collectedSubroutes
                 .stream()
                 .collect(Collectors.groupingBy(route -> route))
                 .values()
                 .stream()
-//                .parallelStream() // TODO
+//                .parallel()
                 .filter(g -> !g.isEmpty())
                 .map(sameRoutes -> Route.create(sameRoutes.size(), sameRoutes.get(0)))
                 .collect(Collectors.toList());
     }
 
+    /**
+     *  Groups by number of occurrences first,
+     *      sorts by the occurrences afterwards,
+     *          for same occurrences in the groups, will kick out the smaller subroutes.
+     *  Takes the first group as result with most occurrences.
+     * */
     private static List<Route> groupAndOrderByOccurrences(List<Route> routes) {
         return routes
                 .stream()
@@ -105,7 +121,7 @@ public class AlgorithmUtils {
                 .entrySet()
                 .stream()
                 .sorted(Map.Entry.<Integer, List<Route>>comparingByKey().reversed())
-//                .parallelStream() // TODO
+//                .parallel()
                 .map((entry) -> {
                     final List<Route> sameByOccurrences = entry.getValue();
                     final List<Route> sortedRoutes =

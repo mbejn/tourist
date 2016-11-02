@@ -14,7 +14,8 @@ public class JsonWrapper {
 
     public TouristOrganization loadData(String filePath) throws FileNotFoundException {
 
-        final InputStream inputStream = new FileInputStream(new File(filePath));;
+        final InputStream inputStream = new FileInputStream(new File(filePath));
+        ;
 
         System.out.println("Input file location: " + filePath);
 
@@ -66,7 +67,7 @@ public class JsonWrapper {
 
         final JsonArrayBuilder mostPopularRoutesBuilder = Json.createArrayBuilder();
 
-        mostPopularRoutes.forEach(route ->{
+        mostPopularRoutes.forEach(route -> {
 
             final JsonObjectBuilder routeBuilder = Json.createObjectBuilder();
 
@@ -104,7 +105,7 @@ public class JsonWrapper {
 
         System.out.println("Output file location: " + outputFilePath);
 
-        final  File newFile = new File(outputFilePath);
+        final File newFile = new File(outputFilePath);
         final FileWriter fileWriter = new FileWriter(newFile);
 
         final Map<String, Object> options = new HashMap<>();
