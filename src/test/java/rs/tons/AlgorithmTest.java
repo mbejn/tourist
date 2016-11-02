@@ -11,23 +11,23 @@ import java.util.Optional;
 
 public class AlgorithmTest {
 
-    private static final TouristSpot A = new TouristSpot("A");
-    private static final TouristSpot B = new TouristSpot("B");
-    private static final TouristSpot C = new TouristSpot("C");
-    private static final TouristSpot D = new TouristSpot("D");
-    private static final TouristSpot E = new TouristSpot("E");
-    private static final TouristSpot J = new TouristSpot("J");
-    private static final TouristSpot K = new TouristSpot("K");
-    private static final TouristSpot O = new TouristSpot("O");
-    private static final TouristSpot X = new TouristSpot("X");
-    private static final TouristSpot L = new TouristSpot("L");
-    private static final TouristSpot Z = new TouristSpot("Z");
-    private static final TouristSpot P = new TouristSpot("P");
-    private static final TouristSpot Y = new TouristSpot("Y");
+    private static final TouristDestination A = new TouristDestination("A");
+    private static final TouristDestination B = new TouristDestination("B");
+    private static final TouristDestination C = new TouristDestination("C");
+    private static final TouristDestination D = new TouristDestination("D");
+    private static final TouristDestination E = new TouristDestination("E");
+    private static final TouristDestination J = new TouristDestination("J");
+    private static final TouristDestination K = new TouristDestination("K");
+    private static final TouristDestination O = new TouristDestination("O");
+    private static final TouristDestination X = new TouristDestination("X");
+    private static final TouristDestination L = new TouristDestination("L");
+    private static final TouristDestination Z = new TouristDestination("Z");
+    private static final TouristDestination P = new TouristDestination("P");
+    private static final TouristDestination Y = new TouristDestination("Y");
 
 
-    private static final TouristSurvey TOURIST_INFO_A = // A->C->D->E->B->J->K->O
-            new TouristSurvey(
+    private static final Tourist TOURIST_INFO_A = // A->C->D->E->B->J->K->O
+            new Tourist("A", "RS",
                     RouteLeg.of(A, C),
                     RouteLeg.of(C, D),
                     RouteLeg.of(D, E),
@@ -37,8 +37,8 @@ public class AlgorithmTest {
                     RouteLeg.of(K, O)
             );
 
-    private static final TouristSurvey TOURIST_INFO_B = // A->C->D->E->X->B->J->K->O->L
-            new TouristSurvey(
+    private static final Tourist TOURIST_INFO_B = // A->C->D->E->X->B->J->K->O->L
+            new Tourist("B", "RS",
                     RouteLeg.of(A, C),
                     RouteLeg.of(C, D),
                     RouteLeg.of(D, E),
@@ -50,8 +50,8 @@ public class AlgorithmTest {
                     RouteLeg.of(O, L)
             );
 
-    private static final TouristSurvey TOURIST_INFO_C = // X->B->J->K->O->C->D->Y->E
-            new TouristSurvey(
+    private static final Tourist TOURIST_INFO_C = // X->B->J->K->O->C->D->Y->E
+            new Tourist("C", "RS",
                     RouteLeg.of(X, B),
                     RouteLeg.of(B, J),
                     RouteLeg.of(J, K),
@@ -62,8 +62,8 @@ public class AlgorithmTest {
                     RouteLeg.of(Y, E)
             );
 
-    private static final TouristSurvey TOURIST_INFO_D = // Z->X->C->D->E->P
-            new TouristSurvey(
+    private static final Tourist TOURIST_INFO_D = // Z->X->C->D->E->P
+            new Tourist("D", "RS",
                     RouteLeg.of(Z, X),
                     RouteLeg.of(X, C),
                     RouteLeg.of(C, D),
@@ -109,7 +109,7 @@ public class AlgorithmTest {
     public void testExampleWithGivenDestination() {
 
         final Optional<Integer> optionalNumberOfRouteLegs = Optional.of(2);
-        final Optional<TouristSpot> optionalDestination = Optional.of(E);
+        final Optional<TouristDestination> optionalDestination = Optional.of(E);
 
         final List<Route> routes = AlgorithmUtils.findMostPopularRoutes(optionalNumberOfRouteLegs, optionalDestination, ORGANIZATION);
 

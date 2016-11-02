@@ -3,7 +3,7 @@ package rs.tons;
 import rs.tons.domain.Organization;
 import rs.tons.domain.Route;
 import rs.tons.domain.RouteLeg;
-import rs.tons.domain.TouristSpot;
+import rs.tons.domain.TouristDestination;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -14,7 +14,7 @@ class AlgorithmUtils {
 
     private static final int DEFAULT_MIN_NUMBER_OF_ROUTE_LEGS = 2;
 
-    public static List<Route> findMostPopularRoutes(Optional<Integer> optionalNumberOfRouteLegs, Optional<TouristSpot> destination, Organization organization) {
+    public static List<Route> findMostPopularRoutes(Optional<Integer> optionalNumberOfRouteLegs, Optional<TouristDestination> destination, Organization organization) {
 
         final List<List<RouteLeg>> collectedSubroutes = AlgorithmUtils.mapSurveysToAllSubroutes(optionalNumberOfRouteLegs, destination, organization);
 
@@ -23,7 +23,7 @@ class AlgorithmUtils {
         return AlgorithmUtils.groupAndOrderByOccurrences(groupedSubroutes);
     }
 
-    private static List<List<RouteLeg>> mapSurveysToAllSubroutes(Optional<Integer> optionalNumberOfRouteLegs, Optional<TouristSpot> destination, Organization organization) {
+    private static List<List<RouteLeg>> mapSurveysToAllSubroutes(Optional<Integer> optionalNumberOfRouteLegs, Optional<TouristDestination> destination, Organization organization) {
 
         final int minRouteLegs = optionalNumberOfRouteLegs.orElse(DEFAULT_MIN_NUMBER_OF_ROUTE_LEGS);
 
@@ -31,7 +31,7 @@ class AlgorithmUtils {
                 .stream()
 //                .parallel()
                 .flatMap(survey -> {
-                    final List<RouteLeg> passengerRoute = survey.getTouristsPath();
+                    final List<RouteLeg> passengerRoute = survey.getDestinations();
                     final int routeLength = passengerRoute.size();
 
                     final Stream<Integer> routeNumbers = IntStream.range(0, routeLength).boxed();

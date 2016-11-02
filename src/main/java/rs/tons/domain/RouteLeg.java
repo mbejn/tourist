@@ -2,16 +2,16 @@ package rs.tons.domain;
 
 public class RouteLeg {
 
-    private final TouristSpot from;
+    private final TouristDestination from;
 
-    private final TouristSpot to;
+    private final TouristDestination to;
 
-    public RouteLeg(TouristSpot from, TouristSpot to) {
+    public RouteLeg(TouristDestination from, TouristDestination to) {
         this.from = from;
         this.to = to;
     }
 
-    public static RouteLeg of(TouristSpot from, TouristSpot to) {
+    public static RouteLeg of(TouristDestination from, TouristDestination to) {
         return new RouteLeg(from, to);
     }
 
@@ -20,11 +20,11 @@ public class RouteLeg {
         return from.toString() + to.toString();
     }
 
-    public TouristSpot getTo() {
+    public TouristDestination getTo() {
         return to;
     }
 
-    public TouristSpot getFrom() {
+    public TouristDestination getFrom() {
         return from;
     }
 

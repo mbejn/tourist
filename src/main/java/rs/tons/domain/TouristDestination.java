@@ -1,10 +1,10 @@
 package rs.tons.domain;
 
-public class TouristSpot {
+public class TouristDestination {
 
     private final String name;
 
-    public TouristSpot(String name) {
+    public TouristDestination(String name) {
         this.name = name;
     }
 
@@ -16,7 +16,7 @@ public class TouristSpot {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        final TouristSpot other = (TouristSpot) obj;
+        final TouristDestination other = (TouristDestination) obj;
         if ((name == null && other.name != null) || !name.equals(other.name))
             return false;
         return true;

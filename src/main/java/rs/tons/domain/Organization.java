@@ -5,13 +5,13 @@ import java.util.List;
 
 public class Organization {
 
-    private final List<TouristSurvey> surveys;
+    private final List<Tourist> surveys;
 
-    public Organization(TouristSurvey... surveys) {
+    public Organization(Tourist... surveys) {
         this.surveys = Arrays.asList(surveys);
     }
 
-    public List<TouristSurvey> getSurveys() {
+    public List<Tourist> getSurveys() {
         return surveys;
     }
 }
