@@ -22,5 +22,3 @@
 ## Example
 	> In tests folder, under rs/tons/AppTest.java there is testMe() method that runs the example with the json file from pdf as if it was ran from command line with specified arguments.
 	> In tests folder, under rs/tons/AlgorithmTest.java are the tests for the algorithm for given example with A->B...
-
-This was a way for me to utilize the JAVA 8 API in order to test how it deals with structural recursion but it still doesn't bring any cool experience
